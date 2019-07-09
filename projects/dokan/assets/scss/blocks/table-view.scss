@@ -1,0 +1,172 @@
+/* Block - Table View */
+.table-view {
+    color: #9c9c9c;
+    text-align: left;
+    overflow-x: auto;
+    
+    table {
+        width: 100%;
+        max-width: 100%;
+        background-color: transparent;
+        border-collapse: collapse;
+        
+        th {
+            padding: 17px 20px 20px;
+            vertical-align: middle;
+        }
+        
+        td {
+            position: relative;
+            padding: 24px 20px 22px;
+            vertical-align: middle;
+            
+            &:before {
+                content: " ";
+                position: absolute;
+                top: 2px;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #fff;
+            }
+            
+            &:first-child:before {
+                border-radius: 3px 0 0 3px;
+            }
+            
+            &:last-child:before {
+                border-radius: 0 3px 3px 0;
+            }
+            
+            a,
+            span {
+                position: relative;
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+    }
+}
+
+.table-view__color {
+    width: 30px;
+    height: 30px;
+    border-radius: 3px;
+    margin-right: 15px;
+}
+
+.table-view__title {
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.table-view__price {
+    color: #1abc9c;
+    font-size: 16px;
+}
+
+.table-view__profile {
+    img {
+        display: inline-block;
+        max-width: 20px;
+        margin-right: 15px;
+        vertical-align: middle;
+    }
+}
+
+.table-view__options {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.table-view__dropdown {
+    cursor: pointer;
+    
+    > img {
+        display: inline-block;
+        width: 18px;
+        vertical-align: middle;
+        -webkit-transition: -webkit-filter .25s;
+                transition: -webkit-filter .25s;
+                transition: filter .25s;
+                transition: filter .25s, -webkit-filter .25s;
+    }
+    
+    ul {
+        position: absolute;
+        top: -3px;
+        right: 31px;
+        min-width: 180px;
+        margin: 0;
+        padding: 17px 22px;
+        list-style: none;
+        background-color: #fff;
+        border: 1px solid #eaecf4;
+        border-radius: 3px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+        font-size: 16px;
+        opacity: 0;
+        visibility: hidden;
+        transform: scale(0.8);
+        transition: transform .25s ease-in-out, opacity .25s ease-in-out, visibility .25s ease-in-out;
+        z-index: 1;
+        
+        li + li {
+            margin-top: 10px;
+        }
+        
+        li a {
+            display: block;
+            color: #9c9c9c;
+            
+            img {
+                display: inline-block;
+                max-width: 15px;
+                margin-right: 15px;
+                vertical-align: middle;
+            }
+            
+            &:hover {
+                color: #000;
+            }
+        }
+        
+        &:before {
+            content: " ";
+            position: absolute;
+            top: -5px;
+            right: -30px;
+            width: 35px;
+            height: 30px;
+            z-index: -1;
+        }
+
+        .table-view tr:nth-last-child(1) &,
+        .table-view tr:nth-last-child(2) & {
+            top: auto;
+            bottom: -3px;
+            
+            &:before {
+                top: auto;
+                bottom: -5px;
+            }
+        }
+    }
+    
+    &:hover {
+        > img {
+            filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feColorMatrix type="matrix" color-interpolation-filters="sRGB" values="0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="0.4" /><feFuncG type="linear" slope="0.4" /><feFuncB type="linear" slope="0.4" /></feComponentTransfer><feColorMatrix type="matrix" color-interpolation-filters="sRGB" values="0.393 0.769 0.189 0 0 0.349 0.686 0.168 0 0 0.272 0.534 0.131 0 0 0 0 0 1 0" /><feColorMatrix type="matrix" color-interpolation-filters="sRGB" values="4.9350000000000005 -3.575 -0.35999999999999993 0 0 -1.065 2.485 -0.35999999999999993 0 0 -1.065 -3.575 5.640000000000001 0 0 0 0 0 1 0" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="0.8" intercept="0.09999999999999998" /><feFuncG type="linear" slope="0.8" intercept="0.09999999999999998" /><feFuncB type="linear" slope="0.8" intercept="0.09999999999999998" /></feComponentTransfer></filter></svg>#filter');
+            -webkit-filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8);
+                    filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8);
+        }
+        
+        ul {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+        }
+    }
+}

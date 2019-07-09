@@ -1,0 +1,23 @@
+/* Block - Content Header */
+.content-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 20px;
+    
+    .btn {
+        margin-bottom: 10px;
+        
+        &:not(:last-child) {
+            margin-right: 10px;
+        }
+    }
+}
+
+.content-header__title {
+    margin-right: auto;
+    margin-bottom: 10px;
+    font-size: 23px;
+    line-height: 33px;
+    font-weight: 400;
+}

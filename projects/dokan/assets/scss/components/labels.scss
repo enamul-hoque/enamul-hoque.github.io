@@ -1,0 +1,31 @@
+/* Component - Labels */
+.label {
+    display: inline-block;
+    padding: 0 12px;
+    color: #fff;
+    background-color: #e4e0e0;
+    border-radius: 12px;
+    font-size: 13px;
+    line-height: 23px;
+    vertical-align: middle;
+}
+
+.label--info {
+    color: #fff;
+    background-color: #00c828;
+}
+
+.label--warning {
+    color: #fff;
+    background-color: #ffbd0e;
+}
+
+.label--danger {
+    color: #fff;
+    background-color: #ff2c5e;
+}
+
+.label--success {
+    color: #fff;
+    background-color: #008afb;
+}

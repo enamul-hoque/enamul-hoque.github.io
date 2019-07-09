@@ -1,0 +1,61 @@
+/* Component - Tags */
+.tag {
+    display: inline-block;
+    padding: 9px 20px;
+    color: #fff;
+    background-color: #d0d0d0;
+    border-radius: 3px;
+    font-weight: 600;
+    vertical-align: middle;
+    
+    &:hover {
+        color: #fff;
+    }
+}
+
+.tag--purple {
+    color: #9b59b6;
+    background-color: rgba(155, 89, 182, 0.1);
+    
+    &:hover {
+        color: #9b59b6;
+    }
+}
+
+.tag--blue {
+    color: #6c75ff;
+    background-color: rgba(108, 117, 255, 0.1);
+    
+    &:hover {
+        color: #6c75ff;
+    }
+}
+
+.tag--green {
+    color: #27ae60;
+    background-color: rgba(39, 174, 96, 0.1);
+    
+    &:hover {
+        color: #27ae60;
+    }
+}
+
+.tag--red {
+    color: #ff2c5e;
+    background-color: rgba(255, 44, 94, 0.1);
+    
+    &:hover {
+        color: #ff2c5e;
+    }
+}
+
+.tag--simple {
+    padding: 7px 18px;
+    color: #d0d0d0;
+    background-color: transparent;
+    border: 2px solid #edebeb;
+    
+    &:hover {
+        color: #d0d0d0;
+    }
+}
