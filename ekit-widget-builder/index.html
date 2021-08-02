@@ -1,1 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="favicon.svg">
+    <title>Ekit Widget Builder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/vendors/css/all.min.css">
+    <link rel="stylesheet" href="assets/vendors/css/elementor-icons.min.css">
+<link href="assets/css/ekit-widget-builder-editor.css" rel="stylesheet"></head>
+<body>
+    <noscript>
+        <strong>We're sorry but Ekit Widget Builder doesn't work properly without JavaScript enabled. Please enable it
+            to continue.</strong>
+    </noscript>
 
+    <script>
+        var ekitWidgetBuilder = {
+            api: 'http://localhost/ekit-widget-builder/api/',
+            pull_id: 0,
+            assets: {
+                'wysiwyg': './assets/img/wysiwyg.png',
+                'noImagePreview': './assets/img/no-image.png',
+                'imagePreviewTrans': './assets/img/transparent_bg.png'
+            }
+        };
+    </script>
+    <div id="ekitWidgetBuilderApp"></div>
+
+    <!-- built files will be auto injected -->
+<script type="text/javascript" src="assets/js/ekit-widget-builder-editor.js"></script></body>
+</html>
