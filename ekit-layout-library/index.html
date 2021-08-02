@@ -1,1 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Ekit Layout Library</title>
 
+	<link rel="stylesheet" href="assets/css/common.min.css">
+	<link rel="stylesheet" href="assets/css/editor.min.css">
+	<link rel="stylesheet" href="assets/css/elementor-icons.min.css">
+	<link rel="stylesheet" href="assets/css/ekit-layout-library.css">
+</head>
+<body>
+
+	<div class="dialog-widget dialog-lightbox-widget dialog-type-buttons dialog-type-lightbox elementor-templates-modal" id="ekitLayoutLibrary">
+		<div id="app" class="dialog-widget-content dialog-lightbox-widget-content"></div>
+	</div>
+
+	<script type="text/javascript">
+
+		var ElementsKitLayoutManager = {
+			"defaultTab": "pages",
+			"buttonIcon": "assets/img/ekit_icon.svg",
+			"infoIcon": "assets/img/info.svg",
+			"apiUrl": "https://nickysfoodmart.com/wp-json/elementskit/v1/layout-manager-api/layout_list",
+			"hasPro": false,
+			"licenseStatus": "",
+			"links": {
+				"go_premium": "https://wpmet.com/elementskit-pricing",
+				"active_license": "http://localhost/elementskit/wp-admin/admin.php?page=elementskit-license"
+			},
+			"banner": {
+				"enable": true,
+				"img": "assets/img/banner.jpg",
+				"link": "https://wpmet.com/layout-manager-banner",
+				"target": '_blank'
+			}
+		};
+	</script>
+
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/react.min.js"></script>
+	<script src="assets/js/react-dom.min.js"></script>
+	<script src="assets/js/element.min.js"></script>
+	<script src="assets/js/ekit-layout-library.js"></script>
+</body>
+</html>
