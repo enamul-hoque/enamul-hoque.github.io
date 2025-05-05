@@ -5,8 +5,8 @@ window.addEventListener('DOMContentLoaded', function () {
     if (params.get('ref') === 'emran') {
         const link = document.createElement('a');
 
-        link.href = 'assets/pdf/resume-enamul-hoque-mohon.pdf';
-        link.download = 'Resume - Enamul Hoque Mohon.pdf';
+        link.href = 'assets/pdf/Resume - Enamul Hoque Mohon.pdf';
+        // link.download = 'Resume - Enamul Hoque Mohon.pdf';
 
         document.body.appendChild(link);
         link.click();
