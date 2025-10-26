@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>5 & 20 Minute Notification</title>
+</head>
+<body>
+  <button id="startBtn5">5 min</button>
+  <button id="startBtn20">20 min</button>
+  <button id="stopBtn" disabled>Stop</button>
+  
+  <!-- <audio id="beep" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"></audio> -->
+  <audio id="beep" src="https://pomofocus.io/audios/alarms/alarm-wood.mp3"></audio>
+
+  <script>
+    let stopped = false;
+    let interval = 5; // default interval
+
+    function playBeep() {
+      const audio = document.getElementById("beep");
+      audio.currentTime = 0;
+      audio.play().catch(err => console.log("Audio error:", err));
+    }
+
+    function scheduleNext() {
+      if (stopped) return;
+
+      const now = new Date();
+      const minutes = now.getMinutes();
+
+      // Find next multiple of interval minutes
+      const nextMinutes = Math.ceil((minutes + 1) / interval) * interval;
+      const next = new Date(now);
+      next.setMinutes(nextMinutes);
+      next.setSeconds(0);
+      next.setMilliseconds(0);
+
+      const delay = next - now;
+
+      setTimeout(() => {
+        if (!stopped) {
+          playBeep();
+          scheduleNext();
+        }
+      }, delay);
+    }
+
+    function startTimer(intervalMinutes) {
+      stopped = false;
+      interval = intervalMinutes;
+      // playBeep(); // beep immediately
+      scheduleNext();
+      document.getElementById("startBtn5").disabled = true;
+      document.getElementById("startBtn20").disabled = true;
+      document.getElementById("stopBtn").disabled = false;
+    }
+
+    document.getElementById("startBtn5").addEventListener("click", () => {
+      startTimer(5);
+    });
+
+    document.getElementById("startBtn20").addEventListener("click", () => {
+      startTimer(20);
+    });
+
+    document.getElementById("stopBtn").addEventListener("click", () => {
+      stopped = true;
+      document.getElementById("startBtn5").disabled = false;
+      document.getElementById("startBtn20").disabled = false;
+      document.getElementById("stopBtn").disabled = true;
+    });
+  </script>
+</body>
+</html>
