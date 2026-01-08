@@ -2,22 +2,66 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>5 & 20 Minute Notification</title>
+  <title>5, 20 & 60 Minutes Notification</title>
+
+  <style>
+    /* Button Style */
+    button {
+      cursor: pointer;
+    }
+    button:disabled {
+      cursor: not-allowed;
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Timer Buttons: Start -->
   <button id="startBtn5">5 min</button>
   <button id="startBtn20">20 min</button>
+  <button id="startBtn60">1 hr</button>
+  <button id="startPomodoro">Pomodoro</button>
   <button id="stopBtn" disabled>Stop</button>
-  
-  <!-- <audio id="beep" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"></audio> -->
-  <audio id="beep" src="https://pomofocus.io/audios/alarms/alarm-wood.mp3"></audio>
+  <!-- Timer Buttons: End -->
+
+  <br><br>
+
+  <!-- Beep Auto: Start -->
+  <audio id="beep" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"></audio>
+  <!-- Beep Auto: End -->
+
+  <!-- Beep Buttons: Start -->
+  <button id="beep_1" data-src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" disabled>Beep 1</button>
+  <button id="beep_2" data-src="https://pomofocus.io/audios/alarms/alarm-wood.mp3">Beep 2</button>
+  <!-- Beep Buttons: End -->
 
   <script>
+    const $beep = document.getElementById("beep");
+    const $beep_1 = document.getElementById("beep_1");
+    const $beep_2 = document.getElementById("beep_2");
+
+    /** Change Beep Sound **/
+    $beep_1.addEventListener("click", function() {
+      const src = this.getAttribute("data-src");
+      $beep.src = src;
+
+      $beep_1.disabled = true;
+      $beep_2.disabled = false;
+    });
+    $beep_2.addEventListener("click", function() {
+      const src = this.getAttribute("data-src");
+      $beep.src = src;
+
+      $beep_1.disabled = false;
+      $beep_2.disabled = true;
+    });
+
+    /** Timer **/
     let stopped = false;
     let interval = 5; // default interval
 
     function playBeep() {
-      const audio = document.getElementById("beep");
+      const audio = $beep;
       audio.currentTime = 0;
       audio.play().catch(err => console.log("Audio error:", err));
     }
@@ -43,32 +87,147 @@
           scheduleNext();
         }
       }, delay);
+
+      // console.log('Test', 1);
+      // console.log('Stopped', stopped);
+      
     }
 
     function startTimer(intervalMinutes) {
       stopped = false;
       interval = intervalMinutes;
-      // playBeep(); // beep immediately
+      playBeep(); // beep immediately
       scheduleNext();
-      document.getElementById("startBtn5").disabled = true;
-      document.getElementById("startBtn20").disabled = true;
+
       document.getElementById("stopBtn").disabled = false;
+    }
+
+    const WORK_DURATION = 25; // in minutes
+    const BREAK_DURATION = 5; // in minutes
+
+    function speak(text) {
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 1.0;
+        utterance.pitch = 1.0;
+        utterance.volume = 1.0;
+        speechSynthesis.speak(utterance);
+      }
+    }
+
+    function getNextPomodoroTime(now) {
+      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+      const nearestHour = Math.floor(currentMinutes / 60) * 60;
+
+      const workStart = nearestHour;
+      const breakStart = nearestHour + WORK_DURATION;
+      const workStart2 = nearestHour + WORK_DURATION + BREAK_DURATION;
+      const breakStart2 = nearestHour + WORK_DURATION + BREAK_DURATION + WORK_DURATION;
+      const nextHour = nearestHour + 60;
+
+      const times = [
+        { minutes: workStart, type: 'work', message: 'Start Working' },
+        { minutes: breakStart, type: 'break', message: 'Take Break' },
+        { minutes: workStart2, type: 'work', message: 'Start Working' },
+        { minutes: breakStart2, type: 'break', message: 'Take Break' },
+        { minutes: nextHour, type: 'work', message: 'Start Working' }
+      ];
+
+      for (let time of times) {
+        if (currentMinutes < time.minutes) {
+          const nextDate = new Date(now);
+          nextDate.setHours(Math.floor(time.minutes / 60));
+          nextDate.setMinutes(time.minutes % 60);
+          nextDate.setSeconds(0);
+          nextDate.setMilliseconds(0);
+          return { date: nextDate, type: time.type, message: time.message };
+        }
+      }
+    }
+
+    function scheduleNext2() {
+      if (stopped) return;
+
+      const now = new Date();
+      const next = getNextPomodoroTime(now);
+      const delay = next.date - now;
+
+      timeoutId = setTimeout(() => {
+        if (!stopped) {
+          // playBeep();
+          speak(next.message);
+          
+          setTimeout(() => {
+            if (!stopped) {
+              scheduleNext2();
+            }
+          }, 1000);
+        }
+      }, delay);
+    }
+
+    function startPomodoro() {
+      stopped = false;
+      const now = new Date();
+      const next = getNextPomodoroTime(now);
+      
+      // playBeep();
+      speak("Pomodoro Started");
+      
+      scheduleNext2();
+      
     }
 
     document.getElementById("startBtn5").addEventListener("click", () => {
       startTimer(5);
+
+      document.getElementById("startBtn5").disabled = true;
+
+      document.getElementById("startBtn20").disabled = false;
+      document.getElementById("startBtn60").disabled = false;
+      document.getElementById("startPomodoro").disabled = false;
     });
 
     document.getElementById("startBtn20").addEventListener("click", () => {
       startTimer(20);
+      
+      document.getElementById("startBtn20").disabled = true;
+
+      document.getElementById("startBtn5").disabled = false;
+      document.getElementById("startBtn60").disabled = false;
+      document.getElementById("startPomodoro").disabled = false;
+    });
+
+    document.getElementById("startBtn60").addEventListener("click", () => {
+      startTimer(60);
+      
+      document.getElementById("startBtn60").disabled = true;
+
+      document.getElementById("startBtn5").disabled = false;
+      document.getElementById("startBtn20").disabled = false;
+      document.getElementById("startPomodoro").disabled = false;
+    });
+
+    document.getElementById("startPomodoro").addEventListener("click", () => {
+      startPomodoro();
+      
+      document.getElementById("startPomodoro").disabled = true;
+
+      document.getElementById("startBtn60").disabled = false;
+      document.getElementById("startBtn5").disabled = false;
+      document.getElementById("startBtn20").disabled = false;
     });
 
     document.getElementById("stopBtn").addEventListener("click", () => {
-      stopped = true;
-      document.getElementById("startBtn5").disabled = false;
-      document.getElementById("startBtn20").disabled = false;
-      document.getElementById("stopBtn").disabled = true;
+      // stopped = true;
+      // document.getElementById("startBtn5").disabled = false;
+      // document.getElementById("startBtn20").disabled = false;
+      // document.getElementById("startBtn60").disabled = false;
+      // document.getElementById("stopBtn").disabled = true;
+
+      window.location.reload();
     });
   </script>
+
 </body>
 </html>
