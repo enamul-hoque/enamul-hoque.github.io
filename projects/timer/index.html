@@ -18,6 +18,7 @@
 
   <!-- Timer Buttons: Start -->
   <button id="startBtn5">5 min</button>
+  <button id="startBtn10">10 min</button>
   <button id="startBtn20">20 min</button>
   <button id="startBtn60">1 hr</button>
   <button id="startPomodoro">Pomodoro</button>
@@ -90,7 +91,6 @@
 
       // console.log('Test', 1);
       // console.log('Stopped', stopped);
-      
     }
 
     function startTimer(intervalMinutes) {
@@ -183,6 +183,18 @@
 
       document.getElementById("startBtn5").disabled = true;
 
+      document.getElementById("startBtn10").disabled = false;
+      document.getElementById("startBtn20").disabled = false;
+      document.getElementById("startBtn60").disabled = false;
+      document.getElementById("startPomodoro").disabled = false;
+    });
+
+    document.getElementById("startBtn10").addEventListener("click", () => {
+      startTimer(10);
+      
+      document.getElementById("startBtn10").disabled = true;
+
+      document.getElementById("startBtn5").disabled = false;
       document.getElementById("startBtn20").disabled = false;
       document.getElementById("startBtn60").disabled = false;
       document.getElementById("startPomodoro").disabled = false;
@@ -194,6 +206,7 @@
       document.getElementById("startBtn20").disabled = true;
 
       document.getElementById("startBtn5").disabled = false;
+      document.getElementById("startBtn10").disabled = false;
       document.getElementById("startBtn60").disabled = false;
       document.getElementById("startPomodoro").disabled = false;
     });
@@ -204,6 +217,7 @@
       document.getElementById("startBtn60").disabled = true;
 
       document.getElementById("startBtn5").disabled = false;
+      document.getElementById("startBtn10").disabled = false;
       document.getElementById("startBtn20").disabled = false;
       document.getElementById("startPomodoro").disabled = false;
     });
@@ -215,12 +229,14 @@
 
       document.getElementById("startBtn60").disabled = false;
       document.getElementById("startBtn5").disabled = false;
+      document.getElementById("startBtn10").disabled = false;
       document.getElementById("startBtn20").disabled = false;
     });
 
     document.getElementById("stopBtn").addEventListener("click", () => {
       // stopped = true;
       // document.getElementById("startBtn5").disabled = false;
+      // document.getElementById("startBtn10").disabled = false;
       // document.getElementById("startBtn20").disabled = false;
       // document.getElementById("startBtn60").disabled = false;
       // document.getElementById("stopBtn").disabled = true;
