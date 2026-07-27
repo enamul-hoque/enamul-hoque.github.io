@@ -12,6 +12,17 @@
     button:disabled {
       cursor: not-allowed;
     }
+
+    .msg--table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 30px;
+      text-align: left;
+      font-style: italic;
+    }
+    .msg--table th {
+      width: 105px;
+    }
   </style>
 </head>
 <body>
@@ -36,10 +47,24 @@
   <button id="beep_2" data-src="https://pomofocus.io/audios/alarms/alarm-wood.mp3">Beep 2</button>
   <!-- Beep Buttons: End -->
 
+  <table class="msg--table">
+    <tr>
+      <th>The trick is to: </th>
+      <td>Work for <span id="msgNum1">0</span> Minutes,</td>
+    </tr>
+    <tr>
+      <th>Then: </th>
+      <td>Do Nothing Next <span id="msgNum2">0</span> Minutes.</td>
+    </tr>
+  </table>
+
   <script>
     const $beep = document.getElementById("beep");
     const $beep_1 = document.getElementById("beep_1");
     const $beep_2 = document.getElementById("beep_2");
+
+    const $msgNum1 = document.getElementById("msgNum1");
+    const $msgNum2 = document.getElementById("msgNum2");
 
     /** Change Beep Sound **/
     $beep_1.addEventListener("click", function() {
@@ -127,9 +152,9 @@
 
       const times = [
         { minutes: workStart, type: 'work', message: 'Start Working' },
-        { minutes: breakStart, type: 'break', message: 'Take Break' },
+        { minutes: breakStart, type: 'break', message: 'Take Break and Drink Water' },
         { minutes: workStart2, type: 'work', message: 'Start Working' },
-        { minutes: breakStart2, type: 'break', message: 'Take Break' },
+        { minutes: breakStart2, type: 'break', message: 'Take Break and Drink Water' },
         { minutes: nextHour, type: 'work', message: 'Start Working' }
       ];
 
@@ -180,6 +205,8 @@
 
     document.getElementById("startBtn5").addEventListener("click", () => {
       startTimer(5);
+      $msgNum1.textContent = 5;
+      $msgNum2.textContent = 5;
 
       document.getElementById("startBtn5").disabled = true;
 
@@ -191,6 +218,8 @@
 
     document.getElementById("startBtn10").addEventListener("click", () => {
       startTimer(10);
+      $msgNum1.textContent = 10;
+      $msgNum2.textContent = 10;
       
       document.getElementById("startBtn10").disabled = true;
 
@@ -202,6 +231,8 @@
 
     document.getElementById("startBtn20").addEventListener("click", () => {
       startTimer(20);
+      $msgNum1.textContent = 20;
+      $msgNum2.textContent = 20;
       
       document.getElementById("startBtn20").disabled = true;
 
@@ -213,6 +244,8 @@
 
     document.getElementById("startBtn60").addEventListener("click", () => {
       startTimer(60);
+      $msgNum1.textContent = 60;
+      $msgNum2.textContent = 60;
       
       document.getElementById("startBtn60").disabled = true;
 
@@ -224,6 +257,8 @@
 
     document.getElementById("startPomodoro").addEventListener("click", () => {
       startPomodoro();
+      $msgNum1.textContent = WORK_DURATION;
+      $msgNum2.textContent = BREAK_DURATION;
       
       document.getElementById("startPomodoro").disabled = true;
 
